@@ -4,7 +4,6 @@ import com.intellij.openapi.Disposable
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import com.intellij.terminal.JBTerminalWidget
-import com.jediterm.terminal.TtyConnector
 import org.jetbrains.plugins.terminal.ShellTerminalWidget
 import org.jetbrains.plugins.terminal.TerminalView
 import java.io.IOException
@@ -22,7 +21,7 @@ class TerminalSession(
     fun start(command: String): JBTerminalWidget {
         stop()
 
-        val terminalView = TerminalView.getInstance(project)
+        val terminalView = project.getService(TerminalView::class.java)
         val widget = terminalView.createLocalShellWidget(
             project.basePath ?: System.getProperty("user.home"),
             "CC Terminal"
@@ -32,7 +31,6 @@ class TerminalSession(
 
         shellWidget = widget
 
-        // Execute the claude command in the terminal
         try {
             widget.executeCommand(command)
         } catch (_: IOException) {
@@ -43,11 +41,9 @@ class TerminalSession(
 
     fun sendText(text: String) {
         val widget = shellWidget ?: return
-        widget.executeWithTtyConnector { connector ->
-            try {
-                connector.write(text + "\r")
-            } catch (_: Exception) {
-            }
+        try {
+            widget.terminalStarter?.sendString(text + "\r", true)
+        } catch (_: Exception) {
         }
     }
 

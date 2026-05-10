@@ -1,9 +1,28 @@
 <idea-plugin>
-    <id>com.lightterminal</id>
+    <id>com.ccterminal</id>
     <name>CC Terminal</name>
     <version>1.0.0</version>
-    <vendor>CC Terminal</vendor>
-    <description>Lightweight terminal wrapper for Claude Code with multi-line input support.</description>
+    <vendor url="https://github.com/xpc1024">xpc1024</vendor>
+    <description><![CDATA[
+<p>A super-lightweight terminal plugin for Claude Code in IntelliJ IDEA.</p>
+
+<h3>Why CC Terminal?</h3>
+<ul>
+  <li><b>Ultra-lightweight</b> — Only ~1.6 MB, zero extra resource overhead. Uses IDEA's built-in Terminal engine.</li>
+  <li><b>Native terminal experience</b> — Identical look, feel, and behavior to IDEA's built-in terminal. Zero learning curve.</li>
+  <li><b>One-click <code>--dangerously-skip-permissions</code></b> — Pre-configured command presets. Launch Claude Code in skip-permissions mode with a single click.</li>
+  <li><b>Rich text input</b> — Multi-line input panel where <code>Enter</code> sends and <code>Shift+Enter</code> inserts a newline. Paste multi-line content without accidental sends.</li>
+  <li><b>Flexible mode toggle</b> — Switch between multi-line input mode and direct terminal mode with <code>Ctrl+Shift+M</code>. Use arrow keys and Enter for native terminal interaction.</li>
+</ul>
+
+<h3>Usage</h3>
+<ol>
+  <li>Open <b>CC Terminal</b> from the bottom toolbar.</li>
+  <li>Select a command from the dropdown (default: <code>claude --dangerously-skip-permissions</code>).</li>
+  <li>Click <b>Run</b> to start Claude Code.</li>
+  <li>Type in the input area and press <code>Enter</code> to send, or <code>Shift+Enter</code> for a new line.</li>
+</ol>
+    ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>org.jetbrains.plugins.terminal</depends>

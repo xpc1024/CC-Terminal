@@ -37,12 +37,13 @@ intellijPlatform {
     buildSearchableOptions = false
 
     pluginConfiguration {
-        id.set("com.lightterminal")
+        id.set("com.ccterminal")
         name.set("CC Terminal")
         version.set(project.version.toString())
-        description.set("Lightweight terminal wrapper for Claude Code with multi-line input support.")
+        description.set("A super-lightweight terminal plugin for Claude Code with rich text input support.")
         vendor {
-            name.set("CC Terminal")
+            name.set("xpc1024")
+            url.set("https://github.com/xpc1024/CC-Terminal")
         }
         ideaVersion {
             sinceBuild.set("223")
