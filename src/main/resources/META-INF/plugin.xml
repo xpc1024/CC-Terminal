@@ -1,0 +1,18 @@
+<idea-plugin>
+    <id>com.lightterminal</id>
+    <name>CC Terminal</name>
+    <version>1.0.0</version>
+    <vendor>CC Terminal</vendor>
+    <description>Lightweight terminal wrapper for Claude Code with multi-line input support.</description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.plugins.terminal</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow
+                id="CC Terminal"
+                anchor="bottom"
+                icon="/icons/CCTerminal.svg"
+                factoryClass="com.lightterminal.LightTerminalFactory"/>
+    </extensions>
+</idea-plugin>
