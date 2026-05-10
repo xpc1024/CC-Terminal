@@ -42,7 +42,9 @@ class TerminalSession(
     fun sendText(text: String) {
         val widget = shellWidget ?: return
         try {
-            widget.terminalStarter?.sendString(text + "\r", true)
+            val starter = widget.terminalStarter ?: return
+            starter.sendString(text, true)
+            starter.sendString("\r", true)
         } catch (_: Exception) {
         }
     }
