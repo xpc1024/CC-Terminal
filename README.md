@@ -11,6 +11,7 @@ CC Terminal is an ultra-lightweight IntelliJ IDEA plugin that provides a native 
 - **One-click launch**: Built-in `claude --dangerously-skip-permissions` mode — one click to start, no manual typing needed
 - **Rich text input**: Multi-line text input support — pasting content with line breaks won't auto-send, preventing accidental submissions
 - **Flexible switching**: In Multi-line mode, Enter sends, Shift+Enter inserts a newline; turn it off to switch to native terminal interaction with arrow key navigation
+- **File attachment**: Click the `+` button to attach any file — the file path is automatically inserted into the input area and sent to Claude Code for reference
 
 #### Architecture
 

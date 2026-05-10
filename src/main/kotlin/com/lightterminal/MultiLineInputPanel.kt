@@ -4,6 +4,7 @@ import java.awt.BorderLayout
 import java.awt.FlowLayout
 import java.awt.event.ActionEvent
 import java.awt.event.KeyEvent
+import java.io.File
 import javax.swing.*
 
 class MultiLineInputPanel(
@@ -12,6 +13,7 @@ class MultiLineInputPanel(
 
     private val textArea = JTextArea(4, 80)
     private val sendButton = JButton("Send")
+    private val attachButton = JButton("+")
 
     init {
         border = BorderFactory.createTitledBorder("Input (Enter=Send, Shift+Enter=NewLine)")
@@ -22,7 +24,12 @@ class MultiLineInputPanel(
         val scrollPane = JScrollPane(textArea)
         add(scrollPane, BorderLayout.CENTER)
 
+        attachButton.toolTipText = "Attach file"
+        attachButton.preferredSize = java.awt.Dimension(sendButton.preferredSize.width - 20, sendButton.preferredSize.height)
+        attachButton.addActionListener { chooseFile() }
+
         val toolbar = JPanel(FlowLayout(FlowLayout.LEFT))
+        toolbar.add(attachButton)
         toolbar.add(sendButton)
         add(toolbar, BorderLayout.SOUTH)
 
@@ -53,6 +60,16 @@ class MultiLineInputPanel(
         if (text.isNotEmpty()) {
             onSend(text)
             textArea.text = ""
+        }
+    }
+
+    private fun chooseFile() {
+        val chooser = JFileChooser()
+        chooser.dialogTitle = "Choose file"
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            val path = chooser.selectedFile.absolutePath
+            val current = textArea.text
+            textArea.text = if (current.isEmpty()) " $path " else "${current.trimEnd()} $path "
         }
     }
 
