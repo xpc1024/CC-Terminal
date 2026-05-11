@@ -44,21 +44,16 @@ class TerminalSession(
         val widget = shellWidget ?: return
         val starter = widget.terminalStarter ?: return
 
-        if (text.length <= CHUNK_SIZE) {
-            try {
-                starter.sendString(text, true)
-                starter.sendString("\r", true)
-            } catch (_: Exception) {
-            }
-            return
-        }
-
         ApplicationManager.getApplication().executeOnPooledThread {
             try {
-                val chunks = text.chunked(CHUNK_SIZE)
-                for (chunk in chunks) {
-                    starter.sendString(chunk, true)
-                    Thread.sleep(CHUNK_DELAY_MS)
+                if (text.length <= CHUNK_SIZE) {
+                    starter.sendString(text, true)
+                } else {
+                    val chunks = text.chunked(CHUNK_SIZE)
+                    for (chunk in chunks) {
+                        starter.sendString(chunk, true)
+                        Thread.sleep(CHUNK_DELAY_MS)
+                    }
                 }
                 Thread.sleep(CHUNK_DELAY_MS)
                 starter.sendString("\r", true)
