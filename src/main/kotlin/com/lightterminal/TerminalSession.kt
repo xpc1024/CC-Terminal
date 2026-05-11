@@ -1,6 +1,7 @@
 package com.lightterminal
 
 import com.intellij.openapi.Disposable
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import com.intellij.terminal.JBTerminalWidget
@@ -41,11 +42,28 @@ class TerminalSession(
 
     fun sendText(text: String) {
         val widget = shellWidget ?: return
-        try {
-            val starter = widget.terminalStarter ?: return
-            starter.sendString(text, true)
-            starter.sendString("\r", true)
-        } catch (_: Exception) {
+        val starter = widget.terminalStarter ?: return
+
+        if (text.length <= CHUNK_SIZE) {
+            try {
+                starter.sendString(text, true)
+                starter.sendString("\r", true)
+            } catch (_: Exception) {
+            }
+            return
+        }
+
+        ApplicationManager.getApplication().executeOnPooledThread {
+            try {
+                val chunks = text.chunked(CHUNK_SIZE)
+                for (chunk in chunks) {
+                    starter.sendString(chunk, true)
+                    Thread.sleep(CHUNK_DELAY_MS)
+                }
+                Thread.sleep(CHUNK_DELAY_MS)
+                starter.sendString("\r", true)
+            } catch (_: Exception) {
+            }
         }
     }
 
@@ -55,5 +73,10 @@ class TerminalSession(
 
     override fun dispose() {
         stop()
+    }
+
+    companion object {
+        private const val CHUNK_SIZE = 1024
+        private const val CHUNK_DELAY_MS = 50L
     }
 }
