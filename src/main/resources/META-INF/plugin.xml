@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.ccterminal</id>
     <name>CC Terminal</name>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <vendor url="https://github.com/xpc1024">xpc1024</vendor>
     <description><![CDATA[
 <p>A super-lightweight terminal plugin for Claude Code in IntelliJ IDEA.</p>

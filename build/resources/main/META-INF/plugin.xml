@@ -2,7 +2,7 @@
   <idea-version since-build="223" until-build="261.*" />
   <id>com.ccterminal</id>
   <name>CC Terminal</name>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <vendor url="https://github.com/xpc1024/CC-Terminal">xpc1024</vendor>
   <description><![CDATA[A super-lightweight terminal plugin for Claude Code with rich text input support.]]></description>
   <depends>com.intellij.modules.platform</depends>
